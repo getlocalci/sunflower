@@ -29,6 +29,7 @@ workflows:
             parameters:
               command: [ 'ktlint', 'test' ]
       - android/run-ui-tests:
+          executor: android
           test-command: connectedAndroidTest
       - android/build:
           executor: android
