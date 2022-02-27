@@ -19,8 +19,6 @@ jobs:
       - checkout
       - gradle/with_cache:
           steps:
-            - android/start-emulator:
-                avd-name: myavd
             - run: ANDROID_SDK_ROOT=~/android-sdk ./gradlew << parameters.command >> --stacktrace
 
 workflows:
@@ -29,6 +27,8 @@ workflows:
       - gradle:
           matrix:
             parameters:
-              command: [ 'ktlint', 'test', 'connectedAndroidTest' ]
+              command: [ 'ktlint', 'test' ]
+      - android/run-ui-tests:
+          test-command: connectedAndroidTest
       - android/build:
           executor: android
