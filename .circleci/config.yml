@@ -4,12 +4,29 @@ orbs:
   android: circleci/android@2.0.0
   gradle: circleci/gradle@2.2.0
 
+executors:
+  android:
+    docker:
+      - image: cimg/android:2022.01.1
+
+jobs:
+  gradle:
+    parameters:
+      command:
+        type: string
+    executor: android
+    steps:
+      - checkout
+      - gradle/with_cache:
+          steps:
+            - run: ANDROID_SDK_ROOT=~/android-sdk ./gradlew << parameters.command >> --stacktrace
+
 workflows:
   test-build:
     jobs:
+      - gradle:
+          matrix:
+            parameters:
+              command: [ 'ktlint', 'test', 'connectedAndroidTest' ]
       - android/build:
-          executor: { name: android/android-docker, tag: '2022.01.1' }
-      - android/run-ui-tests:
-          executor: { name: android/android-docker, tag: '2022.01.1' }
-      - gradle/run:
-          command: ktlint
+          executor: android
