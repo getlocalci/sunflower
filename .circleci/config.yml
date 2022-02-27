@@ -30,6 +30,6 @@ workflows:
               command: [ 'ktlint', 'test' ]
       - android/run-ui-tests:
           executor: android
-          test-command: ./gradlew connectedAndroidTest
+          test-command: './gradlew connectedAndroidTest'
       - android/build:
           executor: android
