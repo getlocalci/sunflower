@@ -21,7 +21,7 @@ jobs:
           steps:
             - run: ANDROID_SDK_ROOT=~/android-sdk ./gradlew << parameters.command >> --stacktrace
       - store_artifacts:
-          path: ~/project/app/build/reports/tests/testDebugUnitTest/index.html
+          path: ~/project/app/build/reports/tests/testDebugUnitTest
 
 workflows:
   test-build:
@@ -35,6 +35,6 @@ workflows:
           test-command: ./gradlew connectedAndroidTest
           post-run-tests-steps:
             - store_artifacts:
-                path: ~/project/app/build/reports/androidTests/connected/flavors/debugAndroidTest/
+                path: ~/project/app/build/reports/androidTests/connected/flavors/debugAndroidTest
       - android/build:
           executor: android
