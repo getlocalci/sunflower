@@ -33,7 +33,7 @@ class ConvertersTest {
     }
 
     @Test fun calendarToDatestamp() {
-        assertEquals(cal.timeInMillis, Converters().calendarToDatestamp(cal))
+        assertEquals(1234, Converters().calendarToDatestamp(cal))
     }
 
     @Test fun datestampToCalendar() {
