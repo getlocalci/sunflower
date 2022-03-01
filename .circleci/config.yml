@@ -7,7 +7,7 @@ orbs:
 executors:
   android:
     docker:
-      - image: cimg/android:2022.1.1
+      - image: cimg/android:2022.01.1
 
 jobs:
   gradle:
@@ -31,7 +31,7 @@ workflows:
       - android/run-ui-tests:
           executor: { name: android/android-machine, tag: 2022.01.1 }
           test-command: ./gradlew connectedAndroidTest
-          post-run-test-steps:
+          post-run-tests-steps:
             - store_artifacts:
                 path: ~/project/app/build/reports/androidTests/connected/flavors/debugAndroidTest/
       - android/build:
