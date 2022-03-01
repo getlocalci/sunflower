@@ -6,8 +6,8 @@ orbs:
 
 executors:
   android:
-    machine:
-      image: android:2022.01.1
+    docker:
+      - image: android:2022.01.1
 
 jobs:
   gradle:
@@ -29,7 +29,7 @@ workflows:
             parameters:
               command: [ 'ktlint', 'test' ]
       - android/run-ui-tests:
-          executor: android
-          test-command: './gradlew connectedAndroidTest'
+          executor: { name: android/android-machine, tag: 2022.01.1 }
+          test-command: ./gradlew connectedAndroidTest
       - android/build:
           executor: android
