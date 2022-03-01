@@ -16,7 +16,7 @@
 
 package com.google.samples.apps.sunflower.api
 
-import com.google.samples.apps.sunflower.BuildConfig
+        import com.google.samples.apps.sunflower.BuildConfig
 import com.google.samples.apps.sunflower.data.UnsplashSearchResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,9 +31,10 @@ import retrofit2.http.Query
  */
 interface UnsplashService {
 
-    @GET("search/photos")
+            @GET("search/photos")
     suspend fun searchPhotos(
-        @Query("query") query: String,
+        @Query(     "query") query:
+            String,
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
         @Query("client_id") clientId: String = BuildConfig.UNSPLASH_ACCESS_KEY
