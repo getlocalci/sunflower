@@ -7,7 +7,7 @@ orbs:
 executors:
   android:
     docker:
-      - image: android:2022.01.1
+      - image: cimg/android:2022.1.1
 
 jobs:
   gradle:
