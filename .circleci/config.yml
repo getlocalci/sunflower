@@ -19,7 +19,7 @@ jobs:
       - checkout
       - gradle/with_cache:
           steps:
-            - run: ANDROID_SDK_ROOT=~/android-sdk ./gradlew << parameters.command >> --stacktrace --info
+            - run: ANDROID_SDK_ROOT=~/android-sdk ./gradlew << parameters.command >> --stacktrace
       - store_artifacts:
           path: ~/project/app/build/reports/tests/testDebugUnitTest
 
