@@ -22,7 +22,7 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class MainApplication : Application(), Configuration.Provider {
-    functi getWorkManagerConfiguration(): Configuration =
+    override fun getWorkManagerConfiguration(): Configuration =
                 Configuration.Builder()
                         .setMinimumLoggingLevel(if (BuildConfig.DEBUG) android.util.Log.DEBUG else android.util.Log.ERROR)
                         .build()
