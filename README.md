@@ -1,5 +1,11 @@
-Android Sunflower
-=================
+# Android Sunflower
+
+Forked from [android/sunflower](https://github.com/android/sunflower).
+
+Now, this has a [CircleCI setup](.circleci/config.yml) for linting, unit tests, and UI tests.
+
+[![CircleCI](https://circleci.com/gh/getlocalci/sunflower.svg?style=svg)](https://circleci.com/gh/getlocalci/sunflower)
+------------
 
 A gardening app illustrating Android development best practices with Android Jetpack.
 

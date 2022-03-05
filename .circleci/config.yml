@@ -1,0 +1,40 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@2.0.0
+  gradle: circleci/gradle@2.2.0
+
+executors:
+  android:
+    docker:
+      - image: cimg/android:2022.01.1
+
+jobs:
+  gradle:
+    parameters:
+      command:
+        type: string
+    executor: android
+    steps:
+      - checkout
+      - gradle/with_cache:
+          steps:
+            - run: ANDROID_SDK_ROOT=~/android-sdk ./gradlew << parameters.command >> --stacktrace
+      - store_artifacts:
+          path: ~/project/app/build/reports/tests/testDebugUnitTest
+
+workflows:
+  test-build:
+    jobs:
+      - gradle:
+          matrix:
+            parameters:
+              command: [ 'ktlint', 'test' ]
+      - android/run-ui-tests:
+          executor: { name: android/android-machine, tag: 2022.01.1 }
+          test-command: ./gradlew connectedAndroidTest
+          post-run-tests-steps:
+            - store_artifacts:
+                path: ~/project/app/build/reports/androidTests/connected/flavors/debugAndroidTest
+      - android/build:
+          executor: android
