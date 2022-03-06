@@ -20,10 +20,8 @@ jobs:
       - gradle/with_cache:
           steps:
             - run: ANDROID_SDK_ROOT=~/android-sdk ./gradlew << parameters.command >> --stacktrace
-      - run: printenv
-      - run: ls ~/project/app/build/reports/tests
-      - store_test_results:
-          path: app/build/reports/tests
+      - store_artifacts:
+          path: ~/project/app/build/reports/tests/testDebugUnitTest
 
 workflows:
   test-build:
@@ -38,5 +36,5 @@ workflows:
           executor: { name: android/android-machine, tag: 2022.01.1 }
           test-command: ./gradlew connectedAndroidTest
           post-run-tests-steps:
-            - store_test_results:
-                path: app/build/reports/androidTests
+            - store_artifacts:
+                path: ~/project/app/build/reports/androidTests/connected/flavors/debugAndroidTest
