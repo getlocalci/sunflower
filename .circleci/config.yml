@@ -21,7 +21,7 @@ jobs:
           steps:
             - run: ANDROID_SDK_ROOT=~/android-sdk ./gradlew << parameters.command >> --stacktrace
       - store_test_results:
-          path: app/build/reports/tests/testDebugUnitTest
+          path: app/build/reports/tests
 
 workflows:
   test-build:
@@ -37,4 +37,4 @@ workflows:
           test-command: ./gradlew connectedAndroidTest
           post-run-tests-steps:
             - store_test_results:
-                path: app/build/reports/androidTests/connected/flavors/debugAndroidTest
+                path: app/build/reports/androidTests
