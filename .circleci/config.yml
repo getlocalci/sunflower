@@ -26,6 +26,8 @@ jobs:
 workflows:
   test-build:
     jobs:
+      - android/build:
+          executor: android
       - gradle:
           matrix:
             parameters:
@@ -36,5 +38,3 @@ workflows:
           post-run-tests-steps:
             - store_artifacts:
                 path: ~/project/app/build/reports/androidTests/connected/flavors/debugAndroidTest
-      - android/build:
-          executor: android
