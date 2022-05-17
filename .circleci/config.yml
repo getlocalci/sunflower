@@ -10,6 +10,23 @@ executors:
       - image: cimg/android:2022.01.1
 
 jobs:
+  build:
+    executor: android
+    steps:
+      - checkout
+      - gradle/with_cache:
+          steps:
+            - run:
+                name: Build the debug APK
+                command: |
+                  GRADLE_OPTs="-Xms4g -Xmx4g -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false -Dkotlin.compiler.execution.strategy=in-process -Dfile.encoding=UTF-8" ./gradlew -s assembleDebug
+            - run:
+                name: Zip the debug APK
+                command: |
+                  zip -r assemble.zip . -i '**/build/*.apk' '**/build/*.aab' '**/build/*.aar' '**/build/*.so'
+      - store_artifacts:
+          name: assemble.zip
+          path: ~/project
   gradle:
     parameters:
       command:
@@ -26,8 +43,7 @@ jobs:
 workflows:
   test-build:
     jobs:
-      - android/build:
-          executor: android
+      - build
       - gradle:
           matrix:
             parameters:
