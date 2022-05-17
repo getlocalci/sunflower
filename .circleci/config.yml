@@ -17,7 +17,7 @@ jobs:
       - gradle/with_cache:
           steps:
             - run:
-                name: Building the debug APK
+                name: Building the APK
                 command: ./gradlew -s assembleDebug
       - store_artifacts:
           path: app/build/outputs/apk/debug/app-debug.apk
