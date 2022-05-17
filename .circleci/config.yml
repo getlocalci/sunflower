@@ -25,7 +25,7 @@ jobs:
                 command: |
                   zip -r assemble.zip . -i '**/build/*.apk' '**/build/*.aab' '**/build/*.aar' '**/build/*.so'
       - store_artifacts:
-          path: ~/project/assemble.zip
+          path: ~/project/assemble
   gradle:
     parameters:
       command:
