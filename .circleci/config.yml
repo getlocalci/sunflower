@@ -36,7 +36,7 @@ jobs:
           steps:
             - run: ./gradlew test --stacktrace
       - store_artifacts:
-          path: ~/project/app/build/reports/tests
+          path: app/build/reports/tests
 
 workflows:
   test-build:
@@ -49,4 +49,4 @@ workflows:
           test-command: ./gradlew connectedAndroidTest
           post-run-tests-steps:
             - store_artifacts:
-                path: ~/project/app/build/reports/androidTests/connected/flavors
+                path: app/build/reports/androidTests/connected/flavors
