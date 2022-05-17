@@ -7,7 +7,7 @@ orbs:
 executors:
   android:
     docker:
-      - image: cimg/android:2022.01.1
+      - image: cimg/android:2022.04
 
 jobs:
   build:
@@ -18,12 +18,10 @@ jobs:
           steps:
             - run:
                 name: Building the debug APK
-                command: |
-                  GRADLE_OPTs="-Xms4g -Xmx4g -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false -Dkotlin.compiler.execution.strategy=in-process -Dfile.encoding=UTF-8" ./gradlew -s assembleDebug
-            - run:
-                name: Zipping the debug APK
-                command: |
-                  zip -r assemble.zip . -i '**/build/*.apk' '**/build/*.aab' '**/build/*.aar' '**/build/*.so'
+                command: GRADLE_OPTs="-Xms4g -Xmx4g -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false -Dkotlin.compiler.execution.strategy=in-process -Dfile.encoding=UTF-8" ./gradlew -s assembleDebug
+      - run:
+          name: Zipping the debug APK
+          command: zip -r assemble.zip . -i '**/build/*.apk' '**/build/*.aab' '**/build/*.aar' '**/build/*.so'
       - store_artifacts:
           path: ~/project/assemble.zip
   gradle:
