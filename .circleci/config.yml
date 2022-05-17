@@ -24,16 +24,20 @@ jobs:
           command: zip -r assemble.zip . -i '**/build/*.apk'
       - store_artifacts:
           path: ~/project/assemble.zip
-  gradle:
-    parameters:
-      command:
-        type: string
+  lint:
     executor: android
     steps:
       - checkout
       - gradle/with_cache:
           steps:
-            - run: ./gradlew << parameters.command >> --stacktrace
+            - run: ./gradlew ktlint --stacktrace
+  test:
+    executor: android
+    steps:
+      - checkout
+      - gradle/with_cache:
+          steps:
+            - run: ./gradlew test --stacktrace
       - store_artifacts:
           path: ~/project/app/build/reports/tests
 
@@ -41,10 +45,8 @@ workflows:
   test-build:
     jobs:
       - build
-      - gradle:
-          matrix:
-            parameters:
-              command: [ 'ktlint', 'test' ]
+      - lint
+      - test
       - android/run-ui-tests:
           executor: { name: android/android-machine, tag: 2022.04.1 }
           test-command: ./gradlew connectedAndroidTest
