@@ -46,7 +46,7 @@ workflows:
             parameters:
               command: [ 'ktlint', 'test' ]
       - android/run-ui-tests:
-          executor: { name: android/android-machine, tag: 2022.01.1 }
+          executor: { name: android/android-machine, tag: 2022.04.1 }
           test-command: ./gradlew connectedAndroidTest
           post-run-tests-steps:
             - store_artifacts:
