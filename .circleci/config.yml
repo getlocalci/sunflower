@@ -21,29 +21,18 @@ jobs:
                 command: ./gradlew -s assembleDebug
       - store_artifacts:
           path: app/build/outputs/apk/debug/app-debug.apk
-  lint:
-    executor: android
-    steps:
-      - checkout
-      - gradle/with_cache:
-          steps:
-            - run: ./gradlew ktlint --stacktrace
-  test:
-    executor: android
-    steps:
-      - checkout
-      - gradle/with_cache:
-          steps:
-            - run: ./gradlew test --stacktrace
-      - store_artifacts:
-          path: app/build/reports/tests
 
 workflows:
   test-build:
     jobs:
       - build
-      - lint
-      - test
+      - gradle/run:
+          executor: android
+          command: ktlint --stacktrace
+      - gradle/test:
+          executor: android
+          test_command: test --stacktrace
+          test_results_path: app/build/reports/tests
       - android/run-ui-tests:
           executor: { name: android/android-machine, tag: 2022.04.1 }
           test-command: ./gradlew connectedAndroidTest
