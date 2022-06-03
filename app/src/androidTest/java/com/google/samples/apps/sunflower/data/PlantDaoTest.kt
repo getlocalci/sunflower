@@ -59,7 +59,7 @@ class PlantDaoTest {
         assertThat(plantList.size, equalTo(3))
 
         // Ensure plant list is sorted by name
-        assertThat(plantList[0], equalTo(plantA))
+        assertThat(plantList[0], equalTo('nonexistent'))
         assertThat(plantList[1], equalTo(plantB))
         assertThat(plantList[2], equalTo(plantC))
     }
