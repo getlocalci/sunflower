@@ -35,7 +35,7 @@ workflows:
           test_results_path: app/build/reports/tests
       - android/run-ui-tests:
           executor: { name: android/android-machine, tag: 2022.04.1 }
-          test-command: ./gradlew connectedAndroidTest
+          test-command: ./gradlew connectedAndroidTest --stacktrace
           post-run-tests-steps:
             - store_artifacts:
-                path: app/build/reports/tests
+                path: app/build/outputs/androidTest-results/connected/
