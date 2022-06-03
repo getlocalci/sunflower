@@ -27,8 +27,10 @@ workflows:
     jobs:
       - build
       - gradle/run:
+          executor: android
           command: ktlint --stacktrace
       - gradle/test:
+          executor: android
           test_command: test --stacktrace
           test_results_path: app/build/reports/tests
       - android/run-ui-tests:
